@@ -1,18 +1,25 @@
 import os
+import cv2
 import tkinter as tk
 from tkinter import filedialog
 
 
-def changeText(label):
-    fTyp = [("", "*")]
+def changeText(label, file_type='*'):
+    fTyp = [("", file_type)]
     iDir = os.path.abspath(os.path.dirname(__file__))
     path = filedialog.askopenfilename(filetypes=fTyp, initialdir=iDir)
 
     label.set(path)
 
-    # if path != '':
-    #     entry.delete(0, tk.END)
-    #     entry.insert(0, path)
+
+def click_word(event, path):
+    if not os.path.exists(path):
+        return
+    img = cv2.imread(path)
+    resize_img = cv2.resize(img, dsize=(640, 380))
+    cv2.imshow('image', resize_img)
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
 
 
 class RegisterController:
@@ -22,10 +29,22 @@ class RegisterController:
         self.model = model
 
         self.view.image1.image_path.config(textvariable=self.model.register_model.image_path1)
-        self.view.image1.image_button.config(command=lambda: changeText(self.model.register_model.image_path1))
+        self.view.image1.image_button.config(command=lambda: changeText(self.model.register_model.image_path1,
+                                                                        '*.png;*.jpg'))
+        self.view.image1.image_path.bind("<Button-1>",
+                                         lambda event: click_word(event, self.model.register_model.image_path1.get())
+                                         )
 
         self.view.image2.image_path.config(textvariable=self.model.register_model.image_path2)
-        self.view.image2.image_button.config(command=lambda: changeText(self.model.register_model.image_path2))
+        self.view.image2.image_button.config(command=lambda: changeText(self.model.register_model.image_path2,
+                                                                        '*.png;*.jpg'))
+        self.view.image2.image_path.bind("<Button-1>",
+                                         lambda event: click_word(event, self.model.register_model.image_path1.get())
+                                         )
 
         self.view.image3.image_path.config(textvariable=self.model.register_model.image_path3)
-        self.view.image3.image_button.config(command=lambda: changeText(self.model.register_model.image_path3))
+        self.view.image3.image_button.config(command=lambda: changeText(self.model.register_model.image_path3,
+                                                                        '*.png;*.jpg'))
+        self.view.image3.image_path.bind("<Button-1>",
+                                         lambda event: click_word(event, self.model.register_model.image_path1.get())
+                                         )
