@@ -1,5 +1,6 @@
 import os
 import cv2
+import ast
 import tkinter as tk
 from tkinter import filedialog
 
@@ -48,3 +49,7 @@ class RegisterController:
         self.view.image3.image_path.bind("<Button-1>",
                                          lambda event: click_word(event, self.model.register_model.image_path1.get())
                                          )
+
+        output_dir_tuple = ast.literal_eval(self.model.config['widjet']['currency_pair'])
+        self.view.pair_combobox.config(textvariable=self.model.register_model.conbobox_text,
+                                       values=output_dir_tuple)
