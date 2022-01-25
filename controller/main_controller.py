@@ -12,4 +12,4 @@ class MainController:
         self.model = MainModel(self.logger, config_path)
         self.view = MainView(master)
 
-        self.register_controller = RegisterController()
+        self.register_controller = RegisterController(self.view.register_view, self.model)
