@@ -21,7 +21,7 @@ class MainView(tk.Frame):
 
         # notebookにタブの追加
         self.notebook.add(self.tab_one, text="登録")
-        self.notebook.add(self.tab_two, text="参照")
+        self.notebook.add(self.tab_two, text="履歴")
 
         self.register_view = RegisterView(self.tab_one)
 
